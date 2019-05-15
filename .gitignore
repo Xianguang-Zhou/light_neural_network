@@ -1,0 +1,7 @@
+/build/
+*.swp
+/.project
+/.cproject
+/.pydevproject
+/.settings/
+
