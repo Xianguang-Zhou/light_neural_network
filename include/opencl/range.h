@@ -7,16 +7,20 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-#ifndef LNN_OPENCL_H_
-#define LNN_OPENCL_H_
+#ifndef LNN_RANGE_H_
+#define LNN_RANGE_H_
 
-#define __CL_ENABLE_EXCEPTIONS
+#include "opencl.h"
 
-#if defined(__APPLE__) || defined(__MACOSX)
-#include <OpenCL/cl.hpp>
-#else
-#include <CL/cl.hpp>
-#endif
+namespace Lnn {
+
+class Range {
+  public:
+	virtual void putToQueue(const cl::CommandQueue &queue,
+							const cl::Kernel &kernel) const = 0;
+	virtual ~Range(){};
+};
+}; // namespace Lnn
 
 #endif
 
