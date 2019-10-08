@@ -16,7 +16,26 @@
 
 namespace Lnn {
 
-template <typename T> class BufferArray {
+class ArgBuffer {
+  protected:
+	virtual ~ArgBuffer() = default;
+
+  private:
+	virtual const cl::Buffer &
+	createClBuffer(std::shared_ptr<cl::Context> context,
+				   std::shared_ptr<cl::Device> device) = 0;
+
+	virtual void updateClBuffer(const cl::CommandQueue &queue) = 0;
+
+	virtual void updateBuffer(bool clBufferModified,
+							  const cl::CommandQueue &queue) = 0;
+
+	virtual void deleteClBuffer() = 0;
+
+	friend class BufferArg;
+};
+
+template <typename T> class BufferArray : private ArgBuffer {
   private:
 	enum class State { SYNCHRONIZED, BUFFER_MODIFIED, CL_BUFFER_MODIFIED };
 
@@ -208,8 +227,9 @@ template <typename T> class BufferArray {
 		}
 	}
 
-	const cl::Buffer &createClBuffer(std::shared_ptr<cl::Context> context,
-									 std::shared_ptr<cl::Device> device) {
+	const cl::Buffer &
+	createClBuffer(std::shared_ptr<cl::Context> context,
+				   std::shared_ptr<cl::Device> device) override {
 		if (!clBuffer) {
 			clBuffer = std::make_unique<cl::Buffer>(*context, CL_MEM_READ_WRITE,
 													length * sizeof(T));
@@ -220,7 +240,7 @@ template <typename T> class BufferArray {
 		return *clBuffer;
 	}
 
-	void updateClBuffer(const cl::CommandQueue &queue) {
+	void updateClBuffer(const cl::CommandQueue &queue) override {
 		if (State::BUFFER_MODIFIED == this->state) {
 			queue.enqueueWriteBuffer(*clBuffer, false, 0, length * sizeof(T),
 									 buffer);
@@ -228,7 +248,8 @@ template <typename T> class BufferArray {
 		}
 	}
 
-	void updateBuffer(bool clBufferModified, const cl::CommandQueue &queue) {
+	void updateBuffer(bool clBufferModified,
+					  const cl::CommandQueue &queue) override {
 		if (clBufferModified) {
 			this->state = State::CL_BUFFER_MODIFIED;
 		}
@@ -241,7 +262,7 @@ template <typename T> class BufferArray {
 		}
 	}
 
-	void deleteClBuffer() {
+	void deleteClBuffer() override {
 		if (!retainClBuffer) {
 			clBuffer.reset();
 		}
