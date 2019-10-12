@@ -6,7 +6,6 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-
 #include "lnn_exception.h"
 
 namespace Lnn {
@@ -23,4 +22,3 @@ Exception::Exception(const std::string &message, const std::exception &cause)
 const char *Exception::what() const noexcept { return message.c_str(); }
 
 }; // namespace Lnn
-

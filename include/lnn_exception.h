@@ -6,7 +6,6 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-
 #ifndef LNN_EXCEPTION_H_
 #define LNN_EXCEPTION_H_
 
@@ -20,7 +19,7 @@ class Exception : public std::exception {
 	explicit Exception(const std::string &message);
 	explicit Exception(const std::exception &cause);
 	explicit Exception(const std::string &message, const std::exception &cause);
-	const char *what() const noexcept;
+	const char *what() const noexcept override;
 
   protected:
 	explicit Exception();
@@ -32,4 +31,3 @@ class Exception : public std::exception {
 }; // namespace Lnn
 
 #endif
-

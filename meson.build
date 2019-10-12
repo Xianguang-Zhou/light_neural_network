@@ -31,4 +31,3 @@ library(meson.project_name(),
 
 install_subdir(kernel_path,
 	install_dir : join_paths(get_option('datadir'), meson.project_name()))
-
