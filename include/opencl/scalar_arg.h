@@ -1,5 +1,6 @@
 /*
- * Copyright (c) 2019, Xianguang Zhou <xianguang.zhou@outlook.com>. All rights reserved.
+ * Copyright (c) 2019, 2020, Xianguang Zhou <xianguang.zhou@outlook.com>. All
+ * rights reserved.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -33,6 +34,11 @@ template <typename T> class ScalarArg : public Arg {
 	T scalar;
 };
 
+#ifdef __GNUC__
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wignored-attributes"
+#endif
+
 typedef ScalarArg<cl_char> CharArg;
 typedef ScalarArg<cl_uchar> UcharArg;
 typedef ScalarArg<cl_short> ShortArg;
@@ -44,6 +50,10 @@ typedef ScalarArg<cl_ulong> UlongArg;
 typedef ScalarArg<cl_half> HalfArg;
 typedef ScalarArg<cl_float> FloatArg;
 typedef ScalarArg<cl_double> DoubleArg;
+
+#ifdef __GNUC__
+#pragma GCC diagnostic pop
+#endif
 
 }; // namespace Lnn
 

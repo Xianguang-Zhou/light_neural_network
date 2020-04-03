@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2019, 2020, Xianguang Zhou <xianguang.zhou@outlook.com>. All
- * rights reserved.
+ * Copyright (c) 2020, Xianguang Zhou <xianguang.zhou@outlook.com>. All rights
+ * reserved.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -15,17 +15,21 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "lnn_exception.h"
+#ifndef LNN_KERNEL_PROVIDER_H_
+#define LNN_KERNEL_PROVIDER_H_
+
+#include <memory>
 
 namespace Lnn {
 
-Exception::Exception(const std::string &message) : message(message) {}
+class KernelProvider {
+  public:
+	virtual ~KernelProvider() = default;
 
-Exception::Exception(const std::exception &cause) : message(cause.what()) {}
+	virtual std::shared_ptr<std::istream>
+	get(const std::string &path) const = 0;
+};
 
-Exception::Exception(const std::string &message, const std::exception &cause)
-	: message(message + "\nCaused by:\n" + cause.what()) {}
+} // namespace Lnn
 
-const char *Exception::what() const noexcept { return message.c_str(); }
-
-}; // namespace Lnn
+#endif

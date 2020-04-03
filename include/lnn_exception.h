@@ -1,5 +1,6 @@
 /*
- * Copyright (c) 2019, Xianguang Zhou <xianguang.zhou@outlook.com>. All rights reserved.
+ * Copyright (c) 2019, 2020, Xianguang Zhou <xianguang.zhou@outlook.com>. All
+ * rights reserved.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -30,7 +31,7 @@ class Exception : public std::exception {
 	const char *what() const noexcept override;
 
   protected:
-	explicit Exception();
+	explicit Exception() = default;
 
   private:
 	std::string message;

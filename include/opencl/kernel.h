@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2019, 2020, Xianguang Zhou <xianguang.zhou@outlook.com>. All
- * rights reserved.
+ * Copyright (c) 2020, Xianguang Zhou <xianguang.zhou@outlook.com>. All rights
+ * reserved.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -15,17 +15,31 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "lnn_exception.h"
+#ifndef LNN_KERNEL_H_
+#define LNN_KERNEL_H_
+
+#include "calling.h"
 
 namespace Lnn {
 
-Exception::Exception(const std::string &message) : message(message) {}
+class Kernel {
+  public:
+	virtual ~Kernel() = default;
 
-Exception::Exception(const std::exception &cause) : message(cause.what()) {}
+  protected:
+	std::shared_ptr<Calling> call() const;
+	virtual std::shared_ptr<std::string> path() const = 0;
 
-Exception::Exception(const std::string &message, const std::exception &cause)
-	: message(message + "\nCaused by:\n" + cause.what()) {}
+  private:
+	void init(std::shared_ptr<cl::Context> context,
+			  std::shared_ptr<cl::Device> device, std::istream &is);
 
-const char *Exception::what() const noexcept { return message.c_str(); }
+	std::shared_ptr<cl::Device> device;
+	std::unique_ptr<Program> program;
 
-}; // namespace Lnn
+	friend class Device;
+};
+
+} // namespace Lnn
+
+#endif

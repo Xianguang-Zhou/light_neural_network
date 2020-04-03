@@ -1,5 +1,6 @@
 /*
- * Copyright (c) 2019, Xianguang Zhou <xianguang.zhou@outlook.com>. All rights reserved.
+ * Copyright (c) 2019, 2020, Xianguang Zhou <xianguang.zhou@outlook.com>. All
+ * rights reserved.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -28,10 +29,10 @@ class Program {
   public:
 	explicit Program(std::shared_ptr<cl::Context> ctx, const std::string &path);
 	explicit Program(std::shared_ptr<cl::Context> ctx, std::istream &is);
-	virtual ~Program();
+	virtual ~Program() = default;
 
   protected:
-	explicit Program();
+	explicit Program() = default;
 	void init(std::shared_ptr<cl::Context> ctx, const std::string &path);
 	void init(std::shared_ptr<cl::Context> ctx, std::istream &is);
 

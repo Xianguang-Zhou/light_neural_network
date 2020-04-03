@@ -1,4 +1,4 @@
-# Copyright (c) 2019 Xianguang Zhou <xianguang.zhou@outlook.com>. All rights reserved.
+# Copyright (c) 2019, 2020, Xianguang Zhou <xianguang.zhou@outlook.com>. All rights reserved.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -17,7 +17,8 @@ project('light_neural_network', 'cpp', default_options : ['cpp_std=c++17'])
 
 opencl_dep = dependency('OpenCL')
 thread_dep = dependency('threads')
-dep_list = [opencl_dep, thread_dep]
+boost_dep = dependency('boost', modules : ['filesystem', 'system'])
+dep_list = [opencl_dep, thread_dep, boost_dep]
 
 include_path = 'include'
 src_path = 'src'

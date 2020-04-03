@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2019, 2020, Xianguang Zhou <xianguang.zhou@outlook.com>. All
- * rights reserved.
+ * Copyright (c) 2020, Xianguang Zhou <xianguang.zhou@outlook.com>. All rights
+ * reserved.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -15,17 +15,22 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "lnn_exception.h"
+#include "opencl/file_kernel_provider.h"
+#include <fstream>
 
 namespace Lnn {
 
-Exception::Exception(const std::string &message) : message(message) {}
+using std::ifstream;
+using std::istream;
+using std::make_shared;
+using std::shared_ptr;
+using std::string;
 
-Exception::Exception(const std::exception &cause) : message(cause.what()) {}
+FileKernelProvider::FileKernelProvider(const string &rootDirPath)
+	: rootDirPath(rootDirPath) {}
 
-Exception::Exception(const std::string &message, const std::exception &cause)
-	: message(message + "\nCaused by:\n" + cause.what()) {}
+shared_ptr<istream> FileKernelProvider::get(const string &path) const {
+	return make_shared<ifstream>(rootDirPath / path);
+}
 
-const char *Exception::what() const noexcept { return message.c_str(); }
-
-}; // namespace Lnn
+} // namespace Lnn

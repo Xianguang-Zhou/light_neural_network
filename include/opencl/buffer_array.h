@@ -1,5 +1,6 @@
 /*
- * Copyright (c) 2019, Xianguang Zhou <xianguang.zhou@outlook.com>. All rights reserved.
+ * Copyright (c) 2019, 2020, Xianguang Zhou <xianguang.zhou@outlook.com>. All
+ * rights reserved.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -285,6 +286,11 @@ template <typename T> class BufferArray : private ArgBuffer {
 	std::shared_ptr<cl::Device> device;
 };
 
+#ifdef __GNUC__
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wignored-attributes"
+#endif
+
 typedef BufferArray<cl_char> CharArray;
 typedef BufferArray<cl_uchar> UcharArray;
 typedef BufferArray<cl_short> ShortArray;
@@ -296,6 +302,10 @@ typedef BufferArray<cl_ulong> UlongArray;
 typedef BufferArray<cl_half> HalfArray;
 typedef BufferArray<cl_float> FloatArray;
 typedef BufferArray<cl_double> DoubleArray;
+
+#ifdef __GNUC__
+#pragma GCC diagnostic pop
+#endif
 
 }; // namespace Lnn
 

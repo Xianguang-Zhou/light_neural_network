@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2019, 2020, Xianguang Zhou <xianguang.zhou@outlook.com>. All
- * rights reserved.
+ * Copyright (c) 2020, Xianguang Zhou <xianguang.zhou@outlook.com>. All rights
+ * reserved.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -15,17 +15,24 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "lnn_exception.h"
+#ifndef LNN_FILE_KERNEL_PROVIDER_H_
+#define LNN_FILE_KERNEL_PROVIDER_H_
+
+#include "kernel_provider.h"
+#include <boost/filesystem/path.hpp>
 
 namespace Lnn {
 
-Exception::Exception(const std::string &message) : message(message) {}
+class FileKernelProvider : public KernelProvider {
+  public:
+	explicit FileKernelProvider(const std::string &rootDirPath = "kernel");
 
-Exception::Exception(const std::exception &cause) : message(cause.what()) {}
+	std::shared_ptr<std::istream> get(const std::string &path) const override;
 
-Exception::Exception(const std::string &message, const std::exception &cause)
-	: message(message + "\nCaused by:\n" + cause.what()) {}
+  private:
+	boost::filesystem::path rootDirPath;
+};
 
-const char *Exception::what() const noexcept { return message.c_str(); }
+} // namespace Lnn
 
-}; // namespace Lnn
+#endif

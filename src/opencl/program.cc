@@ -1,5 +1,6 @@
 /*
- * Copyright (c) 2019, Xianguang Zhou <xianguang.zhou@outlook.com>. All rights reserved.
+ * Copyright (c) 2019, 2020, Xianguang Zhou <xianguang.zhou@outlook.com>. All
+ * rights reserved.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -30,15 +31,11 @@ using std::make_shared;
 using std::shared_ptr;
 using std::string;
 
-Program::Program() {}
-
 Program::Program(shared_ptr<Context> ctx, const string &path) {
 	init(ctx, path);
 }
 
 Program::Program(shared_ptr<Context> ctx, istream &is) { init(ctx, is); }
-
-Program::~Program() {}
 
 void Program::init(shared_ptr<Context> ctx, const string &path) {
 	ifstream fs(path);

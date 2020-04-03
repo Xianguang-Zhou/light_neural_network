@@ -1,5 +1,6 @@
 /*
- * Copyright (c) 2019, Xianguang Zhou <xianguang.zhou@outlook.com>. All rights reserved.
+ * Copyright (c) 2019, 2020, Xianguang Zhou <xianguang.zhou@outlook.com>. All
+ * rights reserved.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -19,7 +20,6 @@
 
 #include "lnn_exception.h"
 #include "opencl.h"
-#include <string>
 
 namespace Lnn {
 
@@ -34,7 +34,7 @@ class CLException : public Exception {
 	cl_int errorCode() const;
 
   protected:
-	explicit CLException();
+	explicit CLException() = default;
 
   private:
 	cl_int _errorCode;

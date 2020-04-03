@@ -1,5 +1,6 @@
 /*
- * Copyright (c) 2019, Xianguang Zhou <xianguang.zhou@outlook.com>. All rights reserved.
+ * Copyright (c) 2019, 2020, Xianguang Zhou <xianguang.zhou@outlook.com>. All
+ * rights reserved.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -27,8 +28,6 @@ using std::string;
 
 Calling::Calling(const Program &program, const string &function)
 	: context(program.context), program(program.program), function(function) {}
-
-Calling::~Calling() {}
 
 Calling &Calling::arg(shared_ptr<Arg> arg) {
 	args.push_back(arg);
